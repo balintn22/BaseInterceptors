@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Interceptors
+namespace BaseInterceptors
 {
     public static class AsyncHelper
     {

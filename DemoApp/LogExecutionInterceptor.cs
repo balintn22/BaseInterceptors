@@ -1,5 +1,5 @@
-﻿using Castle.DynamicProxy;
-using Interceptors;
+﻿using BaseInterceptors;
+using Castle.DynamicProxy;
 using System;
 
 namespace DemoApp

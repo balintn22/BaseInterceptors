@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace Interceptors
+namespace BaseInterceptors
 {
     public class ExecutionInterceptor : IInterceptor
     {

@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace Interceptors
+namespace BaseInterceptors
 {
     /// <summary>
     /// Implements an interceptor that measures method execution time.

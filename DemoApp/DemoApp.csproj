@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Interceptors\Interceptors.csproj" />
+    <ProjectReference Include="..\BaseInterceptors\BaseInterceptors.csproj" />
   </ItemGroup>
 
 </Project>
