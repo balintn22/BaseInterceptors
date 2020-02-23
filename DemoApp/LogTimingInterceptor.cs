@@ -13,7 +13,7 @@ namespace DemoApp
         protected override void OnCompleted(IInvocation invocation, TimeSpan executionTime)
         {
             string methodName = GetMethodName(invocation);
-            Console.WriteLine($"{methodName} execution time: {executionTime.TotalMilliseconds} msecs");
+            Console.WriteLine($"Timing interceptor: {methodName} execution time: {executionTime.TotalMilliseconds} msecs");
         }
 
         private string GetMethodName(IInvocation invocation)

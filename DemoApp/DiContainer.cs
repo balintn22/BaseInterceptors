@@ -12,6 +12,7 @@ namespace DemoApp
             _container = new WindsorContainer();
 
             // Register interceptors
+            _container.Register(Component.For<LogExceptionInterceptor>().ImplementedBy<LogExceptionInterceptor>().Named(nameof(LogExceptionInterceptor)).LifestyleTransient());
             _container.Register(Component.For<LogExecutionInterceptor>().ImplementedBy<LogExecutionInterceptor>().Named(nameof(LogExecutionInterceptor)).LifestyleTransient());
             _container.Register(Component.For<LogTimingInterceptor>().ImplementedBy<LogTimingInterceptor>().Named(nameof(LogTimingInterceptor)).LifestyleTransient());
 

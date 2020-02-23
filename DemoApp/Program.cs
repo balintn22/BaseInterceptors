@@ -38,6 +38,10 @@ namespace DemoApp
             Console.WriteLine($"Doing something that fails...");
             await business.DoAsync(-1);
             Console.WriteLine();
+
+            Console.WriteLine($"Doing something that is expected to return a value but fails...");
+            Console.WriteLine($"Result of the failed operation: {business.Count(-1)}");
+            Console.WriteLine();
         }
     }
 }
