@@ -74,10 +74,7 @@ namespace BaseInterceptors
         /// </summary>
         /// <param name="invocation">Contains information about the measured method invocation, use it to fetch method name, etc.</param>
         /// <param name="executionTime">Contains the elapsed time between method execution start and end.</param>
-        protected virtual async Task OnCompletedAsync(IInvocation invocation, TimeSpan executionTime)
-        {
-            throw new NotImplementedException();
-        }
+        protected abstract Task OnCompletedAsync(IInvocation invocation, TimeSpan executionTime);
 
         #endregion Logic
     }
