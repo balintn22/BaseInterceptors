@@ -6,28 +6,22 @@ namespace BaseInterceptors
     /// <summary>
     /// Implements an interceptor that detects method entry and exit.
     /// Whenever a method starts or finishes execution, the overridable OnEntry() and OnExit() methods are called.
-    /// OnEntry() and OnExit() are implemented both as a synchronous and as an asynchronous method,
-    /// called when sync or async methods are intercepted, respectively.
+    /// OnEntry() and OnExit() are implemented as asynchronous methods,
+    /// regardless of the intercepted method.
     /// </summary>
-    public abstract class ExecutionInterceptor : IInterceptor
+    public abstract class ExecutionInterceptorAsync : IInterceptor
     {
         #region Implement IInterceptor
 
         public void Intercept(IInvocation invocation)
         {
             var methodInfo = invocation.MethodInvocationTarget;
+            Task.Run(() => OnEntryAsync(invocation));
+            invocation.Proceed();
             if (AsyncHelper.IsAsync(methodInfo))
-            {
-                Task.Run(() => OnEntryAsync(invocation));
-                invocation.Proceed();
                 invocation.ReturnValue = InterceptAsync((dynamic)invocation.ReturnValue, invocation);
-            }
             else
-            {
-                OnEntry(invocation);
-                invocation.Proceed();
                 InterceptSync(invocation);
-            }
         }
 
         private async Task InterceptAsync(Task task, IInvocation invocation)
@@ -48,7 +42,7 @@ namespace BaseInterceptors
         private void InterceptSync(IInvocation invocation)
         {
             // Do the continuation work for a sync method
-            OnExit(invocation);
+            AsyncHelper.RunSync(() => OnExitAsync(invocation));
         }
 
         #endregion Implement IInterceptor
@@ -56,11 +50,7 @@ namespace BaseInterceptors
         
         #region Logic
 
-        protected abstract void OnEntry(IInvocation invocation);
-
         protected abstract Task OnEntryAsync(IInvocation invocation);
-
-        protected abstract void OnExit(IInvocation invocation);
 
         protected abstract Task OnExitAsync(IInvocation invocation);
 

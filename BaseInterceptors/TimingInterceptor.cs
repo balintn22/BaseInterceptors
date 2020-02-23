@@ -17,9 +17,9 @@ namespace BaseInterceptors
 
         public void Intercept(IInvocation invocation)
         {
+            var methodInfo = invocation.MethodInvocationTarget;
             StartStopwatch();
             invocation.Proceed();
-            var methodInfo = invocation.MethodInvocationTarget;
             if (AsyncHelper.IsAsync(methodInfo))
                 invocation.ReturnValue = InterceptAsync((dynamic)invocation.ReturnValue, invocation);
             else
@@ -29,20 +29,21 @@ namespace BaseInterceptors
         private async Task InterceptAsync(Task task, IInvocation invocation)
         {
             await task.ConfigureAwait(false);
-            // do the continuation work for Task...
+            // Do the continuation work for Task
             await StopStopwatchAsync(invocation);
         }
 
         private async Task<T> InterceptAsync<T>(Task<T> task, IInvocation invocation)
         {
             T result = await task.ConfigureAwait(false);
-            // do the continuation work for Task<T>...
+            // Do the continuation work for Task<T>
             await StopStopwatchAsync(invocation);
             return result;
         }
 
         private void InterceptSync(IInvocation invocation)
         {
+            // Do the continuation work for a sync method
             StopStopwatch(invocation);
         }
 

@@ -4,7 +4,7 @@ using System;
 
 namespace DemoApp
 {
-    public class LogExecutionInterceptor : ExecutionInterceptor
+    public class LogExecutionInterceptor : ExecutionInterceptorSync
     {
         protected override void OnEntry(IInvocation invocation)
         {

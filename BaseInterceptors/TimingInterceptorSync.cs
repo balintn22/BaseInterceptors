@@ -16,9 +16,9 @@ namespace BaseInterceptors
 
         public void Intercept(IInvocation invocation)
         {
+            var methodInfo = invocation.MethodInvocationTarget;
             StartStopwatch();
             invocation.Proceed();
-            var methodInfo = invocation.MethodInvocationTarget;
             if (AsyncHelper.IsAsync(methodInfo))
                 invocation.ReturnValue = InterceptAsync((dynamic)invocation.ReturnValue, invocation);
             else
