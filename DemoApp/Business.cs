@@ -19,7 +19,7 @@ namespace DemoApp
     // List interceptors from the outermost towards the inner ones.
     // However, the order of interceptor execution is not guaranteed by the order of these attributes.
     // To set interceptor order, see https://github.com/castleproject/Windsor/blob/master/docs/registering-interceptors-and-proxyoptions.md#registering-interceptors-and-proxyoptions
-    // and the comments in DiContainer.Initialise()
+    // and the comments in DiContainer.Initialise().
     [Interceptor(typeof(LogExecutionInterceptor))]
     [Interceptor(typeof(LogTimingInterceptor))]
     [Interceptor(typeof(LogExceptionInterceptor))]
