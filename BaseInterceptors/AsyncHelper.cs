@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -37,5 +39,11 @@ namespace BaseInterceptors
                 .Unwrap()
                 .GetAwaiter()
                 .GetResult();
+
+        public static bool IsAsync(MethodInfo methodInfo)
+        {
+            return methodInfo.GetCustomAttribute(typeof(AsyncStateMachineAttribute)) != null
+                && typeof(Task).IsAssignableFrom(methodInfo.ReturnType);
+        }
     }
 }

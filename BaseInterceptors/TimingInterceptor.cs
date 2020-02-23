@@ -1,8 +1,6 @@
 ﻿using Castle.DynamicProxy;
 using System;
 using System.Diagnostics;
-using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace BaseInterceptors
@@ -22,14 +20,10 @@ namespace BaseInterceptors
             StartStopwatch();
             invocation.Proceed();
             var methodInfo = invocation.MethodInvocationTarget;
-            if (IsAsync(methodInfo) && typeof(Task).IsAssignableFrom(methodInfo.ReturnType))
-            {
+            if (AsyncHelper.IsAsync(methodInfo))
                 invocation.ReturnValue = InterceptAsync((dynamic)invocation.ReturnValue, invocation);
-            }
             else
-            {   // Do continuation work for sync
-                StopStopwatch(invocation);
-            }
+                InterceptSync(invocation);
         }
 
         private async Task InterceptAsync(Task task, IInvocation invocation)
@@ -47,9 +41,9 @@ namespace BaseInterceptors
             return result;
         }
 
-        private bool IsAsync(MethodInfo methodInfo)
+        private void InterceptSync(IInvocation invocation)
         {
-            return methodInfo.GetCustomAttribute(typeof(AsyncStateMachineAttribute)) != null;
+            StopStopwatch(invocation);
         }
 
         #endregion Implement IInterceptor

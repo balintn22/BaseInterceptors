@@ -14,14 +14,10 @@ namespace BaseInterceptors
             OnEntry(invocation);
             invocation.Proceed();
             var methodInfo = invocation.MethodInvocationTarget;
-            if (IsAsync(methodInfo) && typeof(Task).IsAssignableFrom(methodInfo.ReturnType))
-            {
+            if (AsyncHelper.IsAsync(methodInfo))
                 invocation.ReturnValue = InterceptAsync((dynamic)invocation.ReturnValue, invocation);
-            }
             else
-            {   // Do continuation work for sync
-                OnExit(invocation);
-            }
+                InterceptSync(invocation);
         }
 
         private async Task InterceptAsync(Task task, IInvocation invocation)
@@ -39,16 +35,12 @@ namespace BaseInterceptors
             return result;
         }
 
-        private bool IsAsync(MethodInfo methodInfo)
+        private void InterceptSync(IInvocation invocation)
         {
-            return methodInfo.GetCustomAttribute(typeof(AsyncStateMachineAttribute)) != null;
+            OnExit(invocation);
         }
 
         #region Logic
-
-        public ExecutionInterceptor()
-        {
-        }
 
         protected virtual void OnEntry(IInvocation invocation)
         {

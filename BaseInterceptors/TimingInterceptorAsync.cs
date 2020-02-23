@@ -1,8 +1,6 @@
 ﻿using Castle.DynamicProxy;
 using System;
 using System.Diagnostics;
-using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace BaseInterceptors
@@ -10,8 +8,7 @@ namespace BaseInterceptors
     /// <summary>
     /// Implements an interceptor that measures method execution time.
     /// Whenever a method finishes execution, the overridable OnCompleted() method is called.
-    /// OnCompleted() is implemented both as a synchronous and as an asynchronous method,
-    /// called when sync or async methods are intercepted, respectively.
+    /// OnCompleted() is implemented as an asynchronous method, regardless of the intercepted method.
     /// </summary>
     public abstract class TimingInterceptorAsync : IInterceptor
     {
@@ -22,14 +19,10 @@ namespace BaseInterceptors
             StartStopwatch();
             invocation.Proceed();
             var methodInfo = invocation.MethodInvocationTarget;
-            if (IsAsync(methodInfo) && typeof(Task).IsAssignableFrom(methodInfo.ReturnType))
-            {
+            if (AsyncHelper.IsAsync(methodInfo))
                 invocation.ReturnValue = InterceptAsync((dynamic)invocation.ReturnValue, invocation);
-            }
             else
-            {   // Do continuation work for sync
-                AsyncHelper.RunSync(() => StopStopwatchAsync(invocation));
-            }
+                InterceptSync(invocation);
         }
 
         private async Task InterceptAsync(Task task, IInvocation invocation)
@@ -47,9 +40,9 @@ namespace BaseInterceptors
             return result;
         }
 
-        private bool IsAsync(MethodInfo methodInfo)
+        private void InterceptSync(IInvocation invocation)
         {
-            return methodInfo.GetCustomAttribute(typeof(AsyncStateMachineAttribute)) != null;
+            AsyncHelper.RunSync(() => StopStopwatchAsync(invocation));
         }
 
         #endregion Implement IInterceptor
