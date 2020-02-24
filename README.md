@@ -28,11 +28,16 @@ Now, decide whether you want to implement intercepting code to be sync, async or
 
 Let's say you want to implement your intercepting logic as sync - so you'll derive from TimingInterceptorSync.
 
-Now, create a new class code file and type this much:
+Now, create a new class code file and type this much (the bits in italic):
+
 public class MyTimingInterceptor _: TimingInterceptorSync_
+
 {
+
     _override_
+
 }
+
 Visual Studio will show you the overridables (OnCompleted in this case) - all you need to do is implement those methods (all of them).
 
 That's it, you implemented an interceptor!
