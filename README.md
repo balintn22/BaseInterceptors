@@ -17,9 +17,9 @@ Another approach (using Castle Windsor component registrations with interceptors
 
 # How to Use
 If you need an interceptor, chose one of the base interceptors in this package:
- - to handle exceptions, start from ExceptionInterceptor
- - to do something on method entry / exit, start from ExecutionInterceptor
- - to measure method execution time, start from TimingInterceptor
+ - to handle exceptions (log them, swallow them, change the return value based on them), start from ExceptionInterceptor
+ - to do something on method entry / exit (i.e. log it, check pre-requisites), start from ExecutionInterceptor
+ - to measure method execution time (log it, update the response with it), start from TimingInterceptor
  - if you have a different scenario, feel free to use the the source code of those interceptors to implement your own (and let me know about your scenario!)
  
 Let's say, you go with TimingInterceptor.
