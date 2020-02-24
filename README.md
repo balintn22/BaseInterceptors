@@ -33,9 +33,7 @@ Now, create a new class code file and type this much (the bits in italic):
 public class MyTimingInterceptor _: TimingInterceptorSync_
 
 {
-
     _override_
-
 }
 
 Visual Studio will show you the overridables (OnCompleted in this case) - all you need to do is implement those methods (all of them).
