@@ -21,6 +21,7 @@ If you need an interceptor, chose one of the base interceptors in this package:
  - to do something on method entry / exit, start from ExecutionInterceptor
  - to measure method execution time, start from TimingInterceptor
  - if you have a different scenario, feel free to use the the source code of those interceptors to implement your own (and let me know about your scenario!)
+ 
 Let's say, you go with TimingInterceptor.
 
 Now, decide whether you want to implement intercepting code to be sync, async or mixed - use the appropriate implementation of the interceptor you selected above.
