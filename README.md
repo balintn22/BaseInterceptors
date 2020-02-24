@@ -25,6 +25,7 @@ If you need an interceptor, chose one of the base interceptors in this package:
 Let's say, you go with TimingInterceptor.
 
 Now, decide whether you want to implement intercepting code to be sync, async or mixed - use the appropriate implementation of the interceptor you selected above.
+
 Let's say you want to implement your intercepting logic as sync - so you'll derive from TimingInterceptorSync.
 
 Now, create a new class code file and type this much:
