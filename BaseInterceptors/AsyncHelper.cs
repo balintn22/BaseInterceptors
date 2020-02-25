@@ -45,5 +45,18 @@ namespace BaseInterceptors
             return methodInfo.GetCustomAttribute(typeof(AsyncStateMachineAttribute)) != null
                 && typeof(Task).IsAssignableFrom(methodInfo.ReturnType);
         }
+
+        // TODO: Should we use this way of determining async method interception?
+        //private static bool IsAsyncMethod(MethodInfo method)
+        //{
+        //    if (method.ReturnType == typeof(Task))
+        //        return true;
+
+        //    if (method.ReturnType.IsGenericType && method.ReturnType.GetGenericTypeDefinition() == typeof(Task<>))
+        //        return true;
+
+        //    return false;
+        //}
+
     }
 }

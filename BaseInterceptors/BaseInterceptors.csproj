@@ -16,6 +16,8 @@
     <Version>0.0.1</Version>
     <Description>Provides simple base interceptors for a number of everyday interception scenarios like execution timing, method entry/exit logging or exception handling.</Description>
     <PackageReleaseNotes>Initial implementation.</PackageReleaseNotes>
+    <Authors>Balint Nagy</Authors>
+    <Company />
   </PropertyGroup>
 
   <ItemGroup>
