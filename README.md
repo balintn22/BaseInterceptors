@@ -1,5 +1,6 @@
 # BaseInterceptors
 Provides simple base interceptors for a number of everyday interception scenarios like execution timing, method entry/exit logging or exception handling.
+If you're new to interceptors and realise that implementing them for synchronous and asynchronous methods is more complex than expected, use these base classes to avoid the complexity.
 
 # Concept
 Implementing an interceptor should be easy, as easy as providing a single method of what to do in case of a certain code aspect.
@@ -152,4 +153,4 @@ To implement the logging aspect, steps 1, 3 and 4 are the same as above. In step
             }
         }
     }
-We chose to derive our interceptor from ExceptionInterceptorSync, because our logging service is synchronous, and setting the result is not IO intensive. If logging was remote, you1d derive your interceptor from ExceptionInterceptorAsync.
+We chose to derive our interceptor from ExceptionInterceptorSync, because our logging service is synchronous, and setting the result is not IO intensive. If logging was remote, you'd derive your interceptor from ExceptionInterceptorAsync.
