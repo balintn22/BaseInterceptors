@@ -28,21 +28,21 @@ namespace BaseInterceptors
         {
             await task.ConfigureAwait(false);
             // Do the continuation work for Task
-            OnExit(invocation);
+            OnExit(invocation, null);
         }
 
         private async Task<T> InterceptAsync<T>(Task<T> task, IInvocation invocation)
         {
             T result = await task.ConfigureAwait(false);
             // Do the continuation work for Task<T>
-            OnExit(invocation);
+            OnExit(invocation, result);
             return result;
         }
 
         private void InterceptSync(IInvocation invocation)
         {
             // Do the continuation work for a sync method
-            OnExit(invocation);
+            OnExit(invocation, null);
         }
 
         #endregion Implement IInterceptor
@@ -52,7 +52,7 @@ namespace BaseInterceptors
 
         public abstract void OnEntry(IInvocation invocation);
 
-        public abstract void OnExit(IInvocation invocation);
+        public abstract void OnExit(IInvocation invocation, object resultValue);
 
         #endregion Logic
     }

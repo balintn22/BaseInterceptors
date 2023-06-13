@@ -11,7 +11,7 @@ namespace DemoApp
             Console.WriteLine($"Execution interceptor: Entering {InvocationHelper.GetFullMethodName(invocation)}");
         }
 
-        public override void OnExit(IInvocation invocation)
+        public override void OnExit(IInvocation invocation, object resultValue)
         {
             Console.WriteLine($"Execution interceptor: Exiting {InvocationHelper.GetFullMethodName(invocation)}");
         }
