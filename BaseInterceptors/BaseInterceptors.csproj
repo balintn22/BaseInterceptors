@@ -13,12 +13,12 @@
     <RepositoryUrl>https://github.com/balintn22/BaseInterceptors</RepositoryUrl>
     <PackageProjectUrl>https://github.com/balintn22/BaseInterceptors</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
-    <Version>0.0.5</Version>
+    <Version>0.0.6</Version>
     <Description>Provides simple base interceptors for a number of everyday interception scenarios like execution timing, method entry/exit logging or exception handling.</Description>
     <PackageReleaseNotes>Added support for more dotnet targets: netstandard2.0, net5.0, net6.0 nad net7.0.</PackageReleaseNotes>
     <Authors>Balint Nagy</Authors>
     <Company />
-    <AssemblyVersion>0.0.5.0</AssemblyVersion>
+    <AssemblyVersion>0.0.6.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>

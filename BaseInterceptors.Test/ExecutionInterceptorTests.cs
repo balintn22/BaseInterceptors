@@ -35,12 +35,12 @@ namespace BaseInterceptors.Test
 
         public class InterceptorUnderTest : ExecutionInterceptorSync
         {
-            protected override void OnEntry(IInvocation invocation)
+            public override void OnEntry(IInvocation invocation)
             {
                 // Do nothing
             }
 
-            protected override void OnExit(IInvocation invocation)
+            public override void OnExit(IInvocation invocation)
             {
                 InvocationHelper.SetReturnValue(invocation, RETURN_VALUE_SET_BY_ASPECT);
             }

@@ -38,7 +38,7 @@ namespace BaseInterceptors.Test
 
         public class InterceptorUnderTest : TimingInterceptorSync
         {
-            protected override void OnCompleted(IInvocation invocation, TimeSpan executionTime)
+            public override void OnCompleted(IInvocation invocation, TimeSpan executionTime)
             {
                 _executionTime = executionTime;
             }

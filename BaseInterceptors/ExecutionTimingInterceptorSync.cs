@@ -53,9 +53,9 @@ namespace BaseInterceptors
         
         #region Logic
 
-        protected abstract void OnEntry(IInvocation invocation);
+        public abstract void OnEntry(IInvocation invocation);
 
-        protected abstract void OnExit(IInvocation invocation, Stopwatch stopwatch);
+        public abstract void OnExit(IInvocation invocation, Stopwatch stopwatch);
 
         #endregion Logic
     }

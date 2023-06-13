@@ -47,12 +47,12 @@ namespace BaseInterceptors
 
         #endregion Implement IInterceptor
 
-        
+
         #region Logic
 
-        protected abstract void OnEntry(IInvocation invocation);
+        public abstract void OnEntry(IInvocation invocation);
 
-        protected abstract void OnExit(IInvocation invocation);
+        public abstract void OnExit(IInvocation invocation);
 
         #endregion Logic
     }

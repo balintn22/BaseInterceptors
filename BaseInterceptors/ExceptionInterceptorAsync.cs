@@ -81,7 +81,7 @@ namespace BaseInterceptors
         /// <param name="invocation"></param>
         /// <param name="ex"></param>
         /// <returns></returns>
-        protected abstract Task<object> OnExceptionAsync(IInvocation invocation, Exception ex);
+        public abstract Task<object> OnExceptionAsync(IInvocation invocation, Exception ex);
 
         #endregion Logic
     }

@@ -10,15 +10,10 @@ namespace DemoApp
     /// </summary>
     public class LogTimingInterceptor : TimingInterceptorSync
     {
-        protected override void OnCompleted(IInvocation invocation, TimeSpan executionTime)
+        public override void OnCompleted(IInvocation invocation, TimeSpan executionTime)
         {
-            string methodName = GetMethodName(invocation);
-            Console.WriteLine($"Timing interceptor: {methodName} execution time: {executionTime.TotalMilliseconds} msecs");
-        }
-
-        private string GetMethodName(IInvocation invocation)
-        {
-            return $"{invocation.InvocationTarget.GetType().Name}.{invocation.Method.Name}()";
+            Console.WriteLine($"Timing interceptor: {InvocationHelper.GetFullMethodName(invocation)} " +
+                $"execution time: {executionTime.TotalMilliseconds} msecs");
         }
     }
 }

@@ -71,7 +71,7 @@ namespace BaseInterceptors
 
         #endregion Implement IInterceptor
 
-        
+
         #region Logic
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace BaseInterceptors
         /// <param name="invocation"></param>
         /// <param name="ex"></param>
         /// <returns></returns>
-        protected abstract object OnException(IInvocation invocation, Exception ex);
+        public abstract object OnException(IInvocation invocation, Exception ex);
 
         /// <summary>
         /// In a derived class, handles an exception occuring during execution of the intercepted method.
@@ -92,7 +92,7 @@ namespace BaseInterceptors
         /// <param name="invocation"></param>
         /// <param name="ex"></param>
         /// <returns></returns>
-        protected abstract Task<object> OnExceptionAsync(IInvocation invocation, Exception ex);
+        public abstract Task<object> OnExceptionAsync(IInvocation invocation, Exception ex);
 
         #endregion Logic
     }

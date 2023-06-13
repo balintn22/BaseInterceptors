@@ -6,19 +6,14 @@ namespace DemoApp
 {
     public class LogExecutionInterceptor : ExecutionInterceptorSync
     {
-        protected override void OnEntry(IInvocation invocation)
+        public override void OnEntry(IInvocation invocation)
         {
-            Console.WriteLine($"Execution interceptor: Entering {GetMethodName(invocation)}");
+            Console.WriteLine($"Execution interceptor: Entering {InvocationHelper.GetFullMethodName(invocation)}");
         }
 
-        protected override void OnExit(IInvocation invocation)
+        public override void OnExit(IInvocation invocation)
         {
-            Console.WriteLine($"Execution interceptor: Exiting {GetMethodName(invocation)}");
-        }
-
-        private string GetMethodName(IInvocation invocation)
-        {
-            return $"{invocation.InvocationTarget.GetType().Name}.{invocation.Method.Name}()";
+            Console.WriteLine($"Execution interceptor: Exiting {InvocationHelper.GetFullMethodName(invocation)}");
         }
     }
 }
