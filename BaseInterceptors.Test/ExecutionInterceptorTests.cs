@@ -40,7 +40,7 @@ namespace BaseInterceptors.Test
                 // Do nothing
             }
 
-            public override void OnExit(IInvocation invocation)
+            public override void OnExit(IInvocation invocation, object resultValue)
             {
                 InvocationHelper.SetReturnValue(invocation, RETURN_VALUE_SET_BY_ASPECT);
             }
@@ -49,24 +49,24 @@ namespace BaseInterceptors.Test
         [TestMethod]
         public void InterceptSyncMethod_Test_IfOnCompletedSetsReturnValue_ThatValueShouldBeRturned()
         {
-            var result = new ProxyGenerator().CreateInterfaceProxyWithTarget<IMy>(new My(), new InterceptorUnderTest());
-            result.Should().NotBeNull();
-            Assert.IsNotNull(result);
+            var proxy = new ProxyGenerator().CreateInterfaceProxyWithTarget<IMy>(new My(), new InterceptorUnderTest());
+            proxy.Should().NotBeNull();
+            Assert.IsNotNull(proxy);
 
-            var returnValue = result.Method();
+            var returnValue = proxy.Method();
 
             returnValue.Should().Be(RETURN_VALUE_SET_BY_ASPECT);
         }
 
         // TODO: This test is failing. Need to find a reliable way of setting the result of an intercepted async call.
         [TestMethod]
-        public async Task InterceptAsyncMethod_Test_IfOnCompletedSetsReturnValue_ThatValueShouldBeRturned()
+        public async Task InterceptAsyncMethod_Test_IfOnCompletedSetsReturnValue_ThatValueShouldBeReturned()
         {
-            var result = new ProxyGenerator().CreateInterfaceProxyWithTarget<IMy>(new My(), new InterceptorUnderTest());
-            result.Should().NotBeNull();
-            Assert.IsNotNull(result);
+            var proxy = new ProxyGenerator().CreateInterfaceProxyWithTarget<IMy>(new My(), new InterceptorUnderTest());
+            proxy.Should().NotBeNull();
+            Assert.IsNotNull(proxy);
 
-            var returnValue = await result.MethodAsync();
+            var returnValue = await proxy.MethodAsync();
 
             returnValue.Should().Be(RETURN_VALUE_SET_BY_ASPECT);
         }
