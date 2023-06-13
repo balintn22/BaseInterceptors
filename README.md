@@ -11,7 +11,7 @@ Interception scenarios implemented so far:
  - exception interception
 
 Each scenario is supported by an abstract, base implementation, with the fewest possible overridable methods, i.e. OnCompleted(IInvocation invocation, TimeSpan elapsed) for the timing interceptor.
-Each interceptor type has 3 base implementations, i.e. TimingInterceptor, TimingInterceptorSync and TimingInterceptorAsync. The implementation called ...Sync exposes a sinlge, synchronous method to override, ...Async exposes a single, async method to override, ... (without a suffixÖ exposes both a sync and an async method to override. The ...Sync interceptor should be used if the aspect is CPU intensive, ...Async should be used if the aspect is IO intensive - just as picking the sync or async versions of a method. The third (suffix-less) implementation uses sync callbacks for sync intercepted methods and async callbacks for async intercepted methods.
+Each interceptor type has 3 base implementations, i.e. TimingInterceptor, TimingInterceptorSync and TimingInterceptorAsync. The implementation called ...Sync exposes a sinlge, synchronous method to override, ...Async exposes a single, async method to override, ... (without a suffix) exposes both a sync and an async method to override. The ...Sync interceptor should be used if the aspect is CPU intensive, ...Async should be used if the aspect is IO intensive - just as picking the sync or async versions of a method. The third (suffix-less) implementation uses sync callbacks for sync intercepted methods and async callbacks for async intercepted methods.
 
 These base interceptors are designed to work in a software envirnment where Castle Windsor is used to manage dependency injection. Interceptors can be applied to classes using the Interceptor attribute.
 Another approach (using Castle Windsor component registrations with interceptors) is not yet complete.
@@ -42,7 +42,7 @@ Visual Studio will show you the overridables (OnCompleted in this case) - all yo
 That's it, you implemented an interceptor!
 
 # Examples
-## Example 1
+## Example 1 - Measure Exceution Time Aspect
 Scenario: there is an application with a class, whose methods' execution time needs to be measured and displayed on the console output. The application uses dependency injection (DI) to create instances of this class. The application targets .Net Core 2.2+ or .Net Framework 4.5+.
 Steps to implement the timing aspect:
  1. Add a reference to the BaseInterceptors package.
@@ -82,7 +82,7 @@ Steps to implement the timing aspect:
 
  ... and you're done. Deriving your interceptor from TimingInterceptorSync means that for both sync and async intercepted methods your OnCompleted() method will be invoked in a synchronous fashion. If - instead of outputting a line to the console - you want to log execution time to a remote service using an async API, derive your interceptor from TimingInterceptorAsync, and override the OnCompletedAsync() method.
 
-## Example 2
+## Example 2 - Method Entry and Exit Logging Aspect
 Scenario: there is an application with a class, whose methods' execution (entry and exit) needs to be logged to a remote service using an async API. The application uses dependency injection (DI) to create instances of this class. The application targets .Net Core 2.2+ or .Net Framework 4.5+. Assume that there is a logger, registered as a DI dependency (class Logger that implements ILogger).
 To implement the logging aspect, steps 1, 3 and 4 are the same as above. In step 2, the interceptor class would look like this:
     using BaseInterceptors;
@@ -118,7 +118,7 @@ To implement the logging aspect, steps 1, 3 and 4 are the same as above. In step
     }
   ... and you're done.
   
-## Example 3
+## Example 3 - Exception Handling Aspect
 Scenario: there is an application with a class, representing an API, where you need to implement top-level exception handling: all exceptions need to be caught, logged, and translated to a status value of 500 in the API method return value.
 The application uses dependency injection (DI) to create instances of this class. The application targets .Net Core 2.2+ or .Net Framework 4.5+. Assume that there is a logger, registered as a DI dependency (class Logger that implements ILogger).
 To implement the logging aspect, steps 1, 3 and 4 are the same as above. In step 2, the interceptor class would look like this:
